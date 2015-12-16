@@ -1,11 +1,15 @@
 package com.ballistic.mainui;
 
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 
 public class WindowUI {
 	
 	private static JFrame jframeWindow;
 	private static String windowUIName = "BallisticMeteorite";
+	private static int WIDTH = 400;
+	private static int HEIGHT = 400;
 	public WindowUI(){
 		
 	}
@@ -18,6 +22,7 @@ public class WindowUI {
 		jframeWindow.setTitle(windowUIName);
 		
 		
+		jframeWindow.setMinimumSize(new Dimension(WIDTH, HEIGHT));
 		jframeWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		jframeWindow.pack();
