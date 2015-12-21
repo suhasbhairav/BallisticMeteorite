@@ -7,6 +7,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import com.ballistic.looks.Windows;
+
 public class OutputConsole {
 
 	public OutputConsole(){
@@ -16,6 +18,7 @@ public class OutputConsole {
 	public JPanel createOutputPanel(){
 		JPanel consolePanel = new JPanel();
 		consolePanel.setBorder(new TitledBorder(new EtchedBorder(), "Output"));
+		consolePanel.setBackground(Windows.mainScreenColor());
 		
 		JTextArea outputDisplay = new JTextArea(9,110);
 		outputDisplay.setEditable(false);

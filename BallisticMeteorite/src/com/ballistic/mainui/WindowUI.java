@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.ballistic.logging.LoggerMessage;
+import com.ballistic.looks.Windows;
 import com.ballistic.text.OutputConsole;
 import com.ballistic.text.ProgrammingArea;
 import com.ballistic.topmenu.TopLevelMenu;
@@ -31,7 +32,7 @@ public class WindowUI {
 			jframeWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			jframeWindow.setTitle(windowUIName);
-			
+			jframeWindow.setBackground(Windows.mainScreenColor());
 			
 			jframeWindow.setMinimumSize(new Dimension(WIDTH, HEIGHT));
 			jframeWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);

@@ -4,6 +4,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import com.ballistic.actions.Listeners;
 import com.ballistic.logging.LoggerMessage;
 
 public class TopLevelMenu {
@@ -40,7 +41,11 @@ public class TopLevelMenu {
 			
 			newProject = new JMenuItem("New Project");
 			openProject = new JMenuItem("Open Project");
+			
 			saveProject = new JMenuItem("Save Project");
+			saveProject.setActionCommand("Save");
+			saveProject.addActionListener(new Listeners());
+			
 			quitProgram = new JMenuItem("Quit");
 					
 			cutItem = new JMenuItem("Cut");
@@ -111,4 +116,5 @@ public class TopLevelMenu {
 		}
 		return helpMenu;
 	}
+	
 }
