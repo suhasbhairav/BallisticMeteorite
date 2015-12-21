@@ -40,7 +40,10 @@ public class TopLevelMenu {
 			helpMenu = new JMenu("Help");
 			
 			newProject = new JMenuItem("New Project");
+			
 			openProject = new JMenuItem("Open Project");
+			openProject.setActionCommand("Open");
+			openProject.addActionListener(new Listeners());
 			
 			saveProject = new JMenuItem("Save Project");
 			saveProject.setActionCommand("Save");

@@ -12,6 +12,7 @@ import com.ballistic.looks.Windows;
 	
 public class ProgrammingArea{
 
+	private static JTextArea programDisplay = null;
 	public ProgrammingArea(){
 				
 		
@@ -22,7 +23,7 @@ public class ProgrammingArea{
 		programmingPanel.setBorder(new TitledBorder(new EtchedBorder(), "Write your program here!"));
 		programmingPanel.setBackground(Windows.mainScreenColor());
 		
-		JTextArea programDisplay = new JTextArea(30,110);
+		programDisplay = new JTextArea(30,110);
 		programDisplay.setEditable(true);
 		
 		JScrollPane scrollPane = new JScrollPane(programDisplay);
@@ -32,6 +33,15 @@ public class ProgrammingArea{
 		programmingPanel.add(scrollPane);
 		return programmingPanel;
 	}
+	
+	public static String getProgramContent(){
+		String programContent = "";
+		if(programDisplay.getText()!= null){
+			programContent = programDisplay.getText();
+		}
+		return programContent;
+	}
+	
 	
 	
 }
