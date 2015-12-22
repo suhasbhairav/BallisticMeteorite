@@ -24,6 +24,7 @@ public class ProgrammingArea{
 		programmingPanel.setBackground(Windows.mainScreenColor());
 		
 		programDisplay = new JTextArea(30,110);
+		
 		programDisplay.setEditable(true);
 		
 		JScrollPane scrollPane = new JScrollPane(programDisplay);
@@ -42,6 +43,15 @@ public class ProgrammingArea{
 		return programContent;
 	}
 	
+	public static void setProgramContent(String content){		
+		programDisplay.append(content);
+		programDisplay.append("\n");
+		
+	}
+	public static void clearProgramContent(){
+		programDisplay.setText("");
+		
+	}
 	
 	
 }

@@ -57,6 +57,8 @@ public class TopLevelMenu {
 			deleteItem = new JMenuItem("Delete");
 			
 			runProject = new JMenuItem("Run");
+			runProject.setActionCommand("Run");
+			runProject.addActionListener(new Listeners());
 			
 			about = new JMenuItem("About BallisticMeteorite");
 		}
