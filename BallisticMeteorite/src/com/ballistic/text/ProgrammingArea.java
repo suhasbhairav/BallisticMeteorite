@@ -7,6 +7,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import com.ballistic.looks.FontType;
 import com.ballistic.looks.Windows;
 
 	
@@ -23,8 +24,8 @@ public class ProgrammingArea{
 		programmingPanel.setBorder(new TitledBorder(new EtchedBorder(), "Write your program here!"));
 		programmingPanel.setBackground(Windows.mainScreenColor());
 		
-		programDisplay = new JTextArea(30,110);
-		
+		programDisplay = new JTextArea(25,140);
+		programDisplay.setFont(FontType.setTextFont());
 		programDisplay.setEditable(true);
 		
 		JScrollPane scrollPane = new JScrollPane(programDisplay);
