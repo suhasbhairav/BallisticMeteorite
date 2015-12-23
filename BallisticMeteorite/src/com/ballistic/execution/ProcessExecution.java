@@ -1,10 +1,10 @@
 package com.ballistic.execution;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import com.ballistic.logging.LoggerMessage;
+import com.ballistic.text.OutputConsole;
 
 public class ProcessExecution {
 
@@ -14,27 +14,44 @@ public class ProcessExecution {
 	}
 	
 	public static void executeFile(String filename){
-		//OutputConsole.clearProgramOutput();
+		OutputConsole.clearProgramOutput();
+		StringBuilder stringBuilder = new StringBuilder();		
 		ProcessBuilder processBuilder = new ProcessBuilder("python", filename);
 		try {
 			Process process = processBuilder.start();
-			int errorCode = process.waitFor();
-			System.out.println("Error:"+errorCode);
-			InputStream inputStream = process.getInputStream();
-			StringBuilder stringBuilder = new StringBuilder();
+			int errorCode = process.waitFor();			
+			
 			BufferedReader reader = null;
-			try{
-				reader = new BufferedReader(new InputStreamReader(inputStream));
-				String line = null;
-				while((line=reader.readLine())!=null){
-					stringBuilder.append(line+System.getProperty("line.separator"));
+			if(errorCode != 0){
+				try{
+					reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+					String line = null;
+					while((line=reader.readLine())!=null){					
+						stringBuilder.append(line+System.getProperty("line.separator"));
+					}
+			
+				}catch(Exception e1){
+					reader.close();
+					
+					LoggerMessage.printLog(ProcessExecution.class.getName(), e1.getMessage());
 				}
-				System.out.println(stringBuilder.toString());
-			}catch(Exception e1){
-				reader.close();
-				System.out.println(e1.getMessage());
-				LoggerMessage.printLog(ProcessExecution.class.getName(), e1.getMessage());
+			
+			}else{
+				try{
+					reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+					String line = null;
+					while((line=reader.readLine())!=null){					
+						stringBuilder.append(line+System.getProperty("line.separator"));
+					}
+				
+				}catch(Exception e1){
+					reader.close();					
+					LoggerMessage.printLog(ProcessExecution.class.getName(), e1.getMessage());
+				}
 			}
+
+			OutputConsole.setProgramOutput(stringBuilder.toString());
+		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			LoggerMessage.printLog(ProcessExecution.class.getName(), e.getMessage());

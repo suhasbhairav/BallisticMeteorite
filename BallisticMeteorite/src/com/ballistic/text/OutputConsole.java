@@ -33,17 +33,10 @@ public class OutputConsole {
 		
 	}
 	
-	public static void setProgramOutput(String content){
-		System.out.println("Out1:"+content);
+	public static void setProgramOutput(String content){		
 		outputDisplay.append(content);
 		outputDisplay.append("\n");
-	}
-	
-	public static void setProgramOutput(char content){
-		System.out.println("Out:");
-		outputDisplay.append(Character.toString(content));
-		outputDisplay.append("\n");
-	}
+	}	
 	
 	public static void clearProgramOutput(){
 		outputDisplay.setText("");
