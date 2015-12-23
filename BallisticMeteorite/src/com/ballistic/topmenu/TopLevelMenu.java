@@ -39,7 +39,10 @@ public class TopLevelMenu {
 			executeMenu = new JMenu("Execute");
 			helpMenu = new JMenu("Help");
 			
-			newProject = new JMenuItem("New Project");
+			newProject = new JMenuItem("New Project");			
+			newProject.setActionCommand("New");
+			newProject.addActionListener(new Listeners());
+			
 			
 			openProject = new JMenuItem("Open Project");
 			openProject.setActionCommand("Open");
@@ -50,7 +53,10 @@ public class TopLevelMenu {
 			saveProject.addActionListener(new Listeners());
 			
 			quitProgram = new JMenuItem("Quit");
-					
+			quitProgram.setActionCommand("Quit");
+			quitProgram.addActionListener(new Listeners());
+			
+			
 			cutItem = new JMenuItem("Cut");
 			copyItem = new JMenuItem("Copy");
 			pasteItem = new JMenuItem("Paste");

@@ -36,8 +36,9 @@ public class ProgrammingArea{
 	}
 	
 	public static String getProgramContent(){
+	
 		String programContent = "";
-		if(programDisplay.getText()!= null){
+		if(programDisplay.getText()!= null){			
 			programContent = programDisplay.getText();
 		}
 		return programContent;

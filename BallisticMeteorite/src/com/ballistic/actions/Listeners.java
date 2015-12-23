@@ -13,6 +13,8 @@ import javax.swing.JFileChooser;
 
 import com.ballistic.execution.ProcessExecution;
 import com.ballistic.logging.LoggerMessage;
+import com.ballistic.mainui.WindowUI;
+import com.ballistic.text.OutputConsole;
 import com.ballistic.text.ProgrammingArea;
 
 public class Listeners implements ActionListener{
@@ -29,13 +31,26 @@ public class Listeners implements ActionListener{
 		if(e!=null){
 			String action = e.getActionCommand();
 			switch(action.toUpperCase()){
-				case "SAVE":
-					JFileChooser saveProgramFile = new JFileChooser();
-					saveProgramFile.showSaveDialog(null);
-					if(saveProgramFile.getSelectedFile()!=null){
-						filename = saveProgramFile.getSelectedFile();				
+				case "NEW":
+					if(filename!=null){
 						saveContentsToFile(filename.getPath());
 					}
+					filename = null;
+					ProgrammingArea.clearProgramContent();
+					OutputConsole.clearProgramOutput();
+					break;
+				case "SAVE":
+					if(filename==null){
+						JFileChooser saveProgramFile = new JFileChooser();
+						saveProgramFile.showSaveDialog(null);
+						if(saveProgramFile.getSelectedFile()!=null){
+							filename = saveProgramFile.getSelectedFile();				
+							//saveContentsToFile(filename.getPath());
+						}
+					}								
+					saveContentsToFile(filename.getPath());
+					
+					//resetFilename();
 					break;
 					
 				case "OPEN":
@@ -50,16 +65,44 @@ public class Listeners implements ActionListener{
 							LoggerMessage.printLog(Listeners.class.getName(), "Error in loading contents of the file");
 						}
 					}
+					//resetFilename();
 					break;
 				
-				case "RUN":
-					saveContentsToFile(filename.getPath());
-					try{
-						ProcessExecution.executeFile(filename.getPath());
-					}catch(Exception e1){
-						LoggerMessage.printLog(Listeners.class.getName(), e1.getMessage());
+				case "RUN":					
+					if(filename == null){
+						try{
+						JFileChooser saveNewProgramFile = new JFileChooser();
+						saveNewProgramFile.showSaveDialog(null);											
+						if(saveNewProgramFile.getSelectedFile()!=null){								
+								filename = saveNewProgramFile.getSelectedFile();							
+								saveContentsToFile(filename.getPath());
+								try{
+									ProcessExecution.executeFile(filename.getPath());
+								}catch(Exception e1){
+									LoggerMessage.printLog(Listeners.class.getName(), e1.getMessage());
+								}
+							
+							}
+						}catch(Exception e2){
+							System.out.println(e2.getLocalizedMessage());
+						}
+					}else{
+						try{
+							saveContentsToFile(filename.getPath());
+							ProcessExecution.executeFile(filename.getPath());
+						}catch(Exception e1){
+							LoggerMessage.printLog(Listeners.class.getName(), e1.getMessage());
+						}
 					}
 					
+					
+					break;
+				
+				case "QUIT":
+					if(filename!=null){
+						saveContentsToFile(filename.getPath());
+					}
+					WindowUI.closeProgram();					
 					break;
 			}
 		}
@@ -95,4 +138,7 @@ public class Listeners implements ActionListener{
 	}
 	
 	
+	public void resetFilename(){
+		filename = null;
+	}
 }

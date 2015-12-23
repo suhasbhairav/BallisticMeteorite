@@ -14,6 +14,7 @@ public class ProcessExecution {
 	}
 	
 	public static void executeFile(String filename){
+		
 		OutputConsole.clearProgramOutput();
 		StringBuilder stringBuilder = new StringBuilder();		
 		ProcessBuilder processBuilder = new ProcessBuilder("python", filename);
