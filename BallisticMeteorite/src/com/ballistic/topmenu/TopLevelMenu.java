@@ -6,6 +6,7 @@ import javax.swing.JMenuItem;
 
 import com.ballistic.actions.Listeners;
 import com.ballistic.logging.LoggerMessage;
+import com.ballistic.looks.FontType;
 
 public class TopLevelMenu {
 
@@ -34,39 +35,60 @@ public class TopLevelMenu {
 		try{
 			menuBar = new JMenuBar();
 			
+			
 			fileMenu = new JMenu("File");
+			fileMenu.setFont(FontType.setTextFontForTopMenu());
+			
 			editMenu = new JMenu("Edit");
+			editMenu.setFont(FontType.setTextFontForTopMenu());
+			
 			executeMenu = new JMenu("Execute");
+			executeMenu.setFont(FontType.setTextFontForTopMenu());
+			
 			helpMenu = new JMenu("Help");
+			helpMenu.setFont(FontType.setTextFontForTopMenu());
 			
 			newProject = new JMenuItem("New Project");			
 			newProject.setActionCommand("New");
 			newProject.addActionListener(new Listeners());
-			
+			newProject.setFont(FontType.setTextFontForTopMenu());
 			
 			openProject = new JMenuItem("Open Project");
 			openProject.setActionCommand("Open");
 			openProject.addActionListener(new Listeners());
+			openProject.setFont(FontType.setTextFontForTopMenu());
 			
 			saveProject = new JMenuItem("Save Project");
 			saveProject.setActionCommand("Save");
 			saveProject.addActionListener(new Listeners());
+			saveProject.setFont(FontType.setTextFontForTopMenu());
 			
 			quitProgram = new JMenuItem("Quit");
 			quitProgram.setActionCommand("Quit");
 			quitProgram.addActionListener(new Listeners());
+			quitProgram.setFont(FontType.setTextFontForTopMenu());
 			
 			
 			cutItem = new JMenuItem("Cut");
+			cutItem.setFont(FontType.setTextFontForTopMenu());
+			
 			copyItem = new JMenuItem("Copy");
+			copyItem.setFont(FontType.setTextFontForTopMenu());
+			
 			pasteItem = new JMenuItem("Paste");
+			pasteItem.setFont(FontType.setTextFontForTopMenu());
+			
 			deleteItem = new JMenuItem("Delete");
+			deleteItem.setFont(FontType.setTextFontForTopMenu());
 			
 			runProject = new JMenuItem("Run");
 			runProject.setActionCommand("Run");
 			runProject.addActionListener(new Listeners());
+			runProject.setFont(FontType.setTextFontForTopMenu());
 			
 			about = new JMenuItem("About BallisticMeteorite");
+			about.setFont(FontType.setTextFontForTopMenu());
+			
 		}
 		catch(Exception e){
 			LoggerMessage.printLog(TopLevelMenu.class.getName(), e.getMessage());

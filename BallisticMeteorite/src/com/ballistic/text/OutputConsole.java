@@ -19,7 +19,10 @@ public class OutputConsole {
 	
 	public JPanel createOutputPanel(){
 		JPanel consolePanel = new JPanel();
-		consolePanel.setBorder(new TitledBorder(new EtchedBorder(), "Output"));
+		TitledBorder titledBorder = new TitledBorder(new EtchedBorder(), "Output");
+		titledBorder.setTitleFont(FontType.setTextFontForTopMenu());
+		
+		consolePanel.setBorder(titledBorder);
 		consolePanel.setBackground(Windows.mainScreenColor());
 		
 		outputDisplay = new JTextArea(6,140);

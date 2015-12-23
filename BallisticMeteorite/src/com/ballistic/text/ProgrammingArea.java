@@ -20,9 +20,12 @@ public class ProgrammingArea{
 	}
 	
 	public JPanel createProgramPanel(){
-		JPanel programmingPanel = new JPanel();
-		programmingPanel.setBorder(new TitledBorder(new EtchedBorder(), "Write your program here!"));
+		JPanel programmingPanel = new JPanel();		
+		TitledBorder titledBorder = new TitledBorder(new EtchedBorder(), "Write your program here!");
+		titledBorder.setTitleFont(FontType.setTextFontForTopMenu());
+		programmingPanel.setBorder(titledBorder);
 		programmingPanel.setBackground(Windows.mainScreenColor());
+		
 		
 		programDisplay = new JTextArea(25,140);
 		programDisplay.setFont(FontType.setTextFont());
