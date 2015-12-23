@@ -25,39 +25,43 @@ public class Listeners implements ActionListener{
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-		String action = e.getActionCommand();
-		switch(action.toUpperCase()){
-			case "SAVE":
-				JFileChooser saveProgramFile = new JFileChooser();
-				saveProgramFile.showSaveDialog(null);
-				filename = saveProgramFile.getSelectedFile();				
-				saveContentsToFile(filename.getPath());
-				break;
+	public void actionPerformed(ActionEvent e) {		
+		if(e!=null){
+			String action = e.getActionCommand();
+			switch(action.toUpperCase()){
+				case "SAVE":
+					JFileChooser saveProgramFile = new JFileChooser();
+					saveProgramFile.showSaveDialog(null);
+					if(saveProgramFile.getSelectedFile()!=null){
+						filename = saveProgramFile.getSelectedFile();				
+						saveContentsToFile(filename.getPath());
+					}
+					break;
+					
+				case "OPEN":
+					JFileChooser openProgramFile = new JFileChooser();
+					openProgramFile.showOpenDialog(null);
+					if(openProgramFile.getSelectedFile()!=null){
+						filename = openProgramFile.getSelectedFile();
+						boolean bOpen = loadContentsFromFile(filename.getPath());				
+						if(bOpen){
+							ProgrammingArea.setProgramContent(content);
+						}else{
+							LoggerMessage.printLog(Listeners.class.getName(), "Error in loading contents of the file");
+						}
+					}
+					break;
 				
-			case "OPEN":
-				JFileChooser openProgramFile = new JFileChooser();
-				openProgramFile.showOpenDialog(null);
-				filename = openProgramFile.getSelectedFile();
-				boolean bOpen = loadContentsFromFile(filename.getPath());				
-				if(bOpen){
-					ProgrammingArea.setProgramContent(content);
-				}else{
-					LoggerMessage.printLog(Listeners.class.getName(), "Error in loading contents of the file");
-				}
-				break;
-			
-			case "RUN":
-				saveContentsToFile(filename.getPath());
-				try{
-					ProcessExecution.executeFile(filename.getPath());
-				}catch(Exception e1){
-					LoggerMessage.printLog(Listeners.class.getName(), e1.getMessage());
-				}
-				
-				break;
+				case "RUN":
+					saveContentsToFile(filename.getPath());
+					try{
+						ProcessExecution.executeFile(filename.getPath());
+					}catch(Exception e1){
+						LoggerMessage.printLog(Listeners.class.getName(), e1.getMessage());
+					}
+					
+					break;
+			}
 		}
 	}
 	
