@@ -27,7 +27,7 @@ public class OutputConsole {
 		
 		outputDisplay = new JTextArea(6,140);
 		outputDisplay.setFont(FontType.setTextFont());
-		outputDisplay.setEditable(true);
+		outputDisplay.setEditable(false);
 		
 		JScrollPane scrollPane = new JScrollPane(outputDisplay);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
