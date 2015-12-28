@@ -10,8 +10,14 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>tcm.early.vulnerability.detector.TCM_ESVD_BUILDER</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>tcm.early.vulnerability.detector.TCM_ESVD_NATURE</nature>
 	</natures>
 </projectDescription>

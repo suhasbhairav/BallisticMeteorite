@@ -2,6 +2,8 @@ package com.ballistic.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,6 +11,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+import javax.swing.Action;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 
 import com.ballistic.execution.ProcessExecution;
@@ -21,15 +25,19 @@ public class Listeners implements ActionListener{
 
 	private static String content = null;
 	private static File filename = null;
+	private JComponent focusOwnerComponent = null;
 	
 	public Listeners(){
+	
 		
 	}
 
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {		
 		if(e!=null){
 			String action = e.getActionCommand();
+			
 			switch(action.toUpperCase()){
 				case "NEW":
 					if(filename!=null){
@@ -104,6 +112,7 @@ public class Listeners implements ActionListener{
 					}
 					WindowUI.closeProgram();					
 					break;
+				
 				case "ABOUT":
 					
 					break;
@@ -144,4 +153,6 @@ public class Listeners implements ActionListener{
 	public void resetFilename(){
 		filename = null;
 	}
+
+	
 }

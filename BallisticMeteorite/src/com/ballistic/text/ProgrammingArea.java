@@ -7,6 +7,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import com.ballistic.actions.TextTransferHandler;
 import com.ballistic.looks.FontType;
 import com.ballistic.looks.Windows;
 
@@ -14,6 +15,8 @@ import com.ballistic.looks.Windows;
 public class ProgrammingArea{
 
 	private static JTextArea programDisplay = null;
+	private static TextTransferHandler textHandler = new TextTransferHandler();
+	
 	public ProgrammingArea(){
 				
 		
@@ -30,7 +33,8 @@ public class ProgrammingArea{
 		programDisplay = new JTextArea(25,140);
 		programDisplay.setFont(FontType.setTextFont());
 		programDisplay.setEditable(true);
-		
+		programDisplay.setTransferHandler(textHandler);
+		programDisplay.setDragEnabled(true);
 		JScrollPane scrollPane = new JScrollPane(programDisplay);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);

@@ -1,8 +1,17 @@
 package com.ballistic.topmenu;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.Action;
+import javax.swing.ActionMap;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JTextArea;
+import javax.swing.KeyStroke;
+import javax.swing.TransferHandler;
+import javax.swing.text.DefaultEditorKit;
 
 import com.ballistic.actions.Listeners;
 import com.ballistic.logging.LoggerMessage;
@@ -25,7 +34,7 @@ public class TopLevelMenu {
 	static JMenuItem cutItem = null;
 	static JMenuItem copyItem = null;
 	static JMenuItem pasteItem = null;
-	static JMenuItem deleteItem = null;
+	
 	
 	static JMenuItem runProject = null;
 	
@@ -69,17 +78,23 @@ public class TopLevelMenu {
 			quitProgram.setFont(FontType.setTextFontForTopMenu());
 			
 			
-			cutItem = new JMenuItem("Cut");
+			cutItem = new JMenuItem(new DefaultEditorKit.CutAction());
+			cutItem.setText("Cut");			
+			cutItem.setMnemonic(KeyEvent.VK_T);
 			cutItem.setFont(FontType.setTextFontForTopMenu());
 			
-			copyItem = new JMenuItem("Copy");
+			
+			
+			copyItem = new JMenuItem(new DefaultEditorKit.CopyAction());
+			copyItem.setText("Copy");		
+			copyItem.setMnemonic(KeyEvent.VK_C);
 			copyItem.setFont(FontType.setTextFontForTopMenu());
 			
-			pasteItem = new JMenuItem("Paste");
-			pasteItem.setFont(FontType.setTextFontForTopMenu());
 			
-			deleteItem = new JMenuItem("Delete");
-			deleteItem.setFont(FontType.setTextFontForTopMenu());
+			pasteItem = new JMenuItem(new DefaultEditorKit.PasteAction());
+			pasteItem.setText("Paste");			
+			pasteItem.setMnemonic(KeyEvent.VK_P);
+			pasteItem.setFont(FontType.setTextFontForTopMenu());
 			
 			runProject = new JMenuItem("Run");
 			runProject.setActionCommand("Run");
@@ -125,7 +140,7 @@ public class TopLevelMenu {
 			editMenu.add(cutItem);
 			editMenu.add(copyItem);
 			editMenu.add(pasteItem);
-			editMenu.add(deleteItem);
+			
 		}catch(Exception e){
 			LoggerMessage.printLog(TopLevelMenu.class.getName(), e.getMessage());
 		}
@@ -148,6 +163,16 @@ public class TopLevelMenu {
 			LoggerMessage.printLog(TopLevelMenu.class.getName(), e.getMessage());
 		}
 		return helpMenu;
+	}
+	
+	private static void setMappings(JTextArea textArea){
+		ActionMap map = textArea.getActionMap();
+		map.put(TransferHandler.getCutAction().getValue(Action.NAME),
+				TransferHandler.getCutAction());
+		map.put(TransferHandler.getCopyAction().getValue(Action.NAME),
+				TransferHandler.getCopyAction());
+		map.put(TransferHandler.getPasteAction().getValue(Action.NAME),
+				TransferHandler.getPasteAction());
 	}
 	
 }
