@@ -2,8 +2,6 @@ package com.ballistic.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,7 +9,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 
@@ -20,6 +17,7 @@ import com.ballistic.logging.LoggerMessage;
 import com.ballistic.mainui.WindowUI;
 import com.ballistic.text.OutputConsole;
 import com.ballistic.text.ProgrammingArea;
+import com.ballistic.windows.About;
 
 public class Listeners implements ActionListener{
 
@@ -114,7 +112,11 @@ public class Listeners implements ActionListener{
 					break;
 				
 				case "ABOUT":
-					
+					try{
+					About about = new About();
+					}catch(Exception eAbout){
+						LoggerMessage.printLog(Listeners.class.getName(), eAbout.getMessage());
+					}
 					break;
 			}
 		}

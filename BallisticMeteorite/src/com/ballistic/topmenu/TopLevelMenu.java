@@ -102,6 +102,8 @@ public class TopLevelMenu {
 			runProject.setFont(FontType.setTextFontForTopMenu());
 			
 			about = new JMenuItem("About BallisticMeteorite");
+			about.setActionCommand("About");
+			about.addActionListener(new Listeners());
 			about.setFont(FontType.setTextFontForTopMenu());
 			
 		}
@@ -165,14 +167,6 @@ public class TopLevelMenu {
 		return helpMenu;
 	}
 	
-	private static void setMappings(JTextArea textArea){
-		ActionMap map = textArea.getActionMap();
-		map.put(TransferHandler.getCutAction().getValue(Action.NAME),
-				TransferHandler.getCutAction());
-		map.put(TransferHandler.getCopyAction().getValue(Action.NAME),
-				TransferHandler.getCopyAction());
-		map.put(TransferHandler.getPasteAction().getValue(Action.NAME),
-				TransferHandler.getPasteAction());
-	}
+
 	
 }
