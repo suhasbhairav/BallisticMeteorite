@@ -9,10 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.ballistic.logging.LoggerMessage;
-import com.ballistic.looks.FontType;
 import com.ballistic.looks.Windows;
 import com.ballistic.text.OutputConsole;
 import com.ballistic.text.ProgrammingArea;
+import com.ballistic.topmenu.IconToolbar;
 import com.ballistic.topmenu.TopLevelMenu;
 
 public class WindowUI {
@@ -43,8 +43,9 @@ public class WindowUI {
 			container = jframeWindow.getContentPane();
 			container.setLayout(new BorderLayout());
 			
-			TopLevelMenu topLevelMenu = new TopLevelMenu();
-			container.add(topLevelMenu.addMenuBar(), BorderLayout.NORTH);
+			TopLevelMenu topLevelMenu = new TopLevelMenu();			
+			//container.add(topLevelMenu.addMenuBar(), BorderLayout.NORTH);
+			
 			
 			ProgrammingArea programmingArea = new ProgrammingArea();
 			container.add(programmingArea.createProgramPanel(), BorderLayout.CENTER);
@@ -52,6 +53,10 @@ public class WindowUI {
 			OutputConsole outputConsole = new OutputConsole();
 			container.add(outputConsole.createOutputPanel(), BorderLayout.SOUTH);
 			
+			IconToolbar iconToolBar = new IconToolbar();			
+			container.add(iconToolBar, BorderLayout.PAGE_START);
+			
+			jframeWindow.setJMenuBar(topLevelMenu.addMenuBar());
 			jframeWindow.pack();
 			jframeWindow.setVisible(true);		
 		}
