@@ -30,7 +30,7 @@ public class ProgrammingArea{
 		programmingPanel.setBackground(Windows.mainScreenColor());
 		
 		
-		programDisplay = new JTextArea(25,140);
+		programDisplay = new JTextArea(24,140);
 		programDisplay.setFont(FontType.setTextFont());
 		programDisplay.setEditable(true);
 		programDisplay.setTransferHandler(textHandler);
