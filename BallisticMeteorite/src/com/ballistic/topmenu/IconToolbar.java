@@ -94,14 +94,17 @@ public class IconToolbar  extends JPanel{
 			switch(actionCommand.toUpperCase()){
 			case "CUT":
 				button = new JButton(new DefaultEditorKit.CutAction());
+				button.setText("");
 				button.setToolTipText(toolTipText);				
 				break;
 			case "COPY":
 				button = new JButton(new DefaultEditorKit.CopyAction());
+				button.setText("");
 				button.setToolTipText(toolTipText);
 				break;
 			case "PASTE":
 				button = new JButton(new DefaultEditorKit.PasteAction());
+				button.setText("");
 				button.setToolTipText(toolTipText);
 				break;
 			}
