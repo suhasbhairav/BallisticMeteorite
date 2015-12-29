@@ -117,7 +117,7 @@ public class IconToolbar  extends JPanel{
 			Image resizedImage = null;
 			try {
 				imageFile = ImageIO.read(getClass().getResource(imageLocation));
-				resizedImage = imageFile.getScaledInstance(25, 25, 25);
+				resizedImage = imageFile.getScaledInstance(20, 20, 20);
 				ImageIcon img = new ImageIcon(resizedImage);
 				
 				button.setIcon(img);
