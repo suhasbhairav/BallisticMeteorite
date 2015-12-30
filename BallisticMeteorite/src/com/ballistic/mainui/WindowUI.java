@@ -20,7 +20,7 @@ import com.ballistic.topmenu.TopLevelMenu;
 public class WindowUI {
 	
 	private static JFrame jframeWindow = null;
-	private static String windowUIName = "BallisticMeteorite";
+	private static String windowUIName = "Ballistic Meteorite";
 	private static JPanel programmingAreaPanel = null;
 	private static JTabbedPane tabbedPane = null;
 	private static int indexOfTabs = 0;
