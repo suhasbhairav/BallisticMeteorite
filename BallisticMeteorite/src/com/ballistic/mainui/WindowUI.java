@@ -49,14 +49,6 @@ public class WindowUI {
 			container.setLayout(new BorderLayout());
 			
 			TopLevelMenu topLevelMenu = new TopLevelMenu();			
-			//container.add(topLevelMenu.addMenuBar(), BorderLayout.NORTH);
-			
-			
-			//ProgrammingArea programmingArea = new ProgrammingArea();
-			//container.add(programmingArea.createProgramPanel(), BorderLayout.CENTER);
-			
-			
-			
 			tabbedPane = new JTabbedPane();
 			
 			tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -96,12 +88,13 @@ public class WindowUI {
 	 public static void initTabComponent(int indexOfTabs) {
 	        tabbedPane.setTabComponentAt(indexOfTabs,
 	                 new ButtonTabComponent(tabbedPane));
-	    }   
+	 }   
 	 
 	 
 	 public static int getIndexOfTabs(){
 		 return indexOfTabs;
 	 }
+	 
 	 
 	public static void addNewProgrammingTab(String text){
 		try{

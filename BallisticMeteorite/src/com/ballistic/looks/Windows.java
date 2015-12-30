@@ -9,6 +9,6 @@ public class Windows {
 	}
 	
 	public static Color mainScreenColor(){
-		return (new Color(209,209,209));
+		return (new Color(230,233,235));
 	}
 }
