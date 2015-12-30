@@ -11,12 +11,13 @@ import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 
 import com.ballistic.execution.ProcessExecution;
 import com.ballistic.logging.LoggerMessage;
 import com.ballistic.mainui.WindowUI;
-import com.ballistic.text.OutputConsole;
-import com.ballistic.text.ProgrammingArea;
+import com.ballistic.text.NewProjectTab;
 import com.ballistic.windows.About;
 
 public class Listeners implements ActionListener{
@@ -24,7 +25,8 @@ public class Listeners implements ActionListener{
 	private static String content = null;
 	private static File filename = null;
 	private JComponent focusOwnerComponent = null;
-	
+	private static  String stringContent = "";
+	private static int noOfTabs = 0;
 	public Listeners(){
 	
 		
@@ -38,25 +40,29 @@ public class Listeners implements ActionListener{
 			
 			switch(action.toUpperCase()){
 				case "NEW":
-					if(filename!=null){
-						saveContentsToFile(filename.getPath());
-					}
+					
 					filename = null;
-					ProgrammingArea.clearProgramContent();
-					OutputConsole.clearProgramOutput();
+					WindowUI.addNewProgrammingTab("");
+					WindowUI.getTabbedPane().setTabComponentAt(WindowUI.getTabbedPane().getTabCount()-1, null);
+					WindowUI.initTabComponent(WindowUI.getTabbedPane().getTabCount()-1);
 					break;
 				case "SAVE":
-					if(filename==null){
-						JFileChooser saveProgramFile = new JFileChooser();
-						saveProgramFile.showSaveDialog(null);
-						if(saveProgramFile.getSelectedFile()!=null){
-							filename = saveProgramFile.getSelectedFile();				
-							//saveContentsToFile(filename.getPath());
-						}
-					}								
-					saveContentsToFile(filename.getPath());
 					
-					//resetFilename();
+					if(WindowUI.getTabName(WindowUI.getTabbedPane().getSelectedIndex()).endsWith(".py") == false){
+						JFileChooser saveProgramFile = new JFileChooser();
+						saveProgramFile.showSaveDialog(null);											
+						if(saveProgramFile.getSelectedFile()!=null){
+								
+								filename = saveProgramFile.getSelectedFile();				
+								saveContentsToFile(filename.getPath());
+							}
+					}
+					else{				
+						String tabName = WindowUI.getTabName(WindowUI.getTabbedPane().getSelectedIndex());
+						File tempFile = new File(tabName);
+						filename = tempFile;
+						saveContentsToFile(filename.getPath());
+					}
 					break;
 					
 				case "OPEN":
@@ -64,43 +70,53 @@ public class Listeners implements ActionListener{
 					openProgramFile.showOpenDialog(null);
 					if(openProgramFile.getSelectedFile()!=null){
 						filename = openProgramFile.getSelectedFile();
+						stringContent = "";
 						boolean bOpen = loadContentsFromFile(filename.getPath());				
 						if(bOpen){
-							ProgrammingArea.setProgramContent(content);
+							NewProjectTab.openProgrammingProject(stringContent, filename.getPath());
 						}else{
 							LoggerMessage.printLog(Listeners.class.getName(), "Error in loading contents of the file");
 						}
 					}
-					//resetFilename();
+				
 					break;
 				
 				case "RUN":					
-					if(filename == null){
+					//if(filename == null){
+					if(WindowUI.getTabName(WindowUI.getTabbedPane().getSelectedIndex()).endsWith(".py") == false){
+							
+					File tempFile = null;
+						
 						try{
-						JFileChooser saveNewProgramFile = new JFileChooser();
-						saveNewProgramFile.showSaveDialog(null);											
-						if(saveNewProgramFile.getSelectedFile()!=null){								
-								filename = saveNewProgramFile.getSelectedFile();							
+							JFileChooser saveNewProgramFile = new JFileChooser();
+							saveNewProgramFile.showSaveDialog(null);											
+							if(saveNewProgramFile.getSelectedFile()!=null){								
+								filename = saveNewProgramFile.getSelectedFile();				
 								saveContentsToFile(filename.getPath());
 								try{
 									ProcessExecution.executeFile(filename.getPath());
 								}catch(Exception e1){
 									LoggerMessage.printLog(Listeners.class.getName(), e1.getMessage());
 								}
-							
 							}
-						}catch(Exception e2){
-							System.out.println(e2.getLocalizedMessage());
+						}catch(Exception e1){
+							e1.printStackTrace();
+						
 						}
 					}else{
+						
+						String tabName = WindowUI.getTabName(WindowUI.getTabbedPane().getSelectedIndex());
+						File tempFile = new File(tabName);
+						filename = tempFile;
+						saveContentsToFile(filename.getPath());	
 						try{
-							saveContentsToFile(filename.getPath());
 							ProcessExecution.executeFile(filename.getPath());
 						}catch(Exception e1){
 							LoggerMessage.printLog(Listeners.class.getName(), e1.getMessage());
 						}
+						
 					}
-					
+						
 					
 					break;
 				
@@ -122,9 +138,13 @@ public class Listeners implements ActionListener{
 		}
 	}
 	
-	public void saveContentsToFile(String filename){
+	public void saveContentsToFile(String filename){		
 		try(BufferedWriter fileSave = new BufferedWriter(new FileWriter(filename))){			
-			fileSave.write(ProgrammingArea.getProgramContent());
+			if(filename!=null){
+				updateTabName();
+			}
+			
+			fileSave.write(NewProjectTab.getProgramContent());
 			
 		}catch(Exception e){
 			LoggerMessage.printLog(Listeners.class.getName(), e.getMessage());
@@ -137,13 +157,16 @@ public class Listeners implements ActionListener{
 			String line = null;
 			
 			ArrayList<String> arrayList = new ArrayList<String>();
-			ProgrammingArea.clearProgramContent();
+			
 			while((line = reader.readLine())!= null){				
 				arrayList.add(line);				
-			}			
+			}
+			
 			for(int i=0;i<arrayList.size();i++){				
-				ProgrammingArea.setProgramContent(arrayList.get(i));				
-			}			
+				stringContent = stringContent + arrayList.get(i);
+				stringContent = stringContent + "\n";
+			}
+			
 		}catch(Exception e){
 			LoggerMessage.printLog(Listeners.class.getName(), e.getMessage());
 			return false;
@@ -156,5 +179,22 @@ public class Listeners implements ActionListener{
 		filename = null;
 	}
 
+	protected int incrementTabCount(){
+		return noOfTabs++;
+	}
+	
+	protected void updateTabName(){
+		SwingUtilities.invokeLater(new Runnable() {
+	        @Override
+	        public void run(){
+	        	if(Listeners.filename!=null){
+	        	WindowUI.getTabbedPane().setTitleAt(WindowUI.getTabbedPane().getSelectedIndex(), Listeners.filename.getPath());
+	        	WindowUI.getTabbedPane().setToolTipTextAt(WindowUI.getTabbedPane().getSelectedIndex(), Listeners.filename.getPath());
+	        	}
+			
+	       }
+	    });
+		
+	}
 	
 }

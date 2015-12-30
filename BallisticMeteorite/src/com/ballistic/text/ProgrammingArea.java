@@ -24,9 +24,9 @@ public class ProgrammingArea{
 	
 	public JPanel createProgramPanel(){
 		JPanel programmingPanel = new JPanel();		
-		TitledBorder titledBorder = new TitledBorder(new EtchedBorder(), "Write your program here!");
-		titledBorder.setTitleFont(FontType.setTextFontForTopMenu());
-		programmingPanel.setBorder(titledBorder);
+		//TitledBorder titledBorder = new TitledBorder(new EtchedBorder(), "Write your program here!");
+		//titledBorder.setTitleFont(FontType.setTextFontForTopMenu());
+		//programmingPanel.setBorder(titledBorder);
 		programmingPanel.setBackground(Windows.mainScreenColor());
 		
 		
