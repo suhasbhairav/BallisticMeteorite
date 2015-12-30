@@ -50,6 +50,7 @@ public class WindowUI {
 			
 			TopLevelMenu topLevelMenu = new TopLevelMenu();			
 			tabbedPane = new JTabbedPane();
+			tabbedPane.setBackground(Windows.tabColor());
 			
 			tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 			addNewProgrammingTab("");
