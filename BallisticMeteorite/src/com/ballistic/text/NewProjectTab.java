@@ -11,6 +11,7 @@ import javax.swing.JTextArea;
 import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 
+
 import com.ballistic.actions.TextTransferHandler;
 import com.ballistic.logging.LoggerMessage;
 import com.ballistic.looks.FontType;
@@ -43,7 +44,7 @@ public class NewProjectTab extends JTabbedPane {
 		programmingPanel.setLayout(new BorderLayout());
 		programmingPanel.setBackground(Windows.mainScreenColor());
 		
-		JTextArea programDisplay = new JTextArea(24,140);
+		JTextArea programDisplay = new JTextArea(24,140);		
 		programDisplay.setFont(FontType.setTextFont());
 		programDisplay.setEditable(true);
 		programDisplay.setTransferHandler(textHandler);
@@ -65,18 +66,20 @@ public class NewProjectTab extends JTabbedPane {
 	
 	public static String getProgramContent(){
 		String programContent = "";
-		try{
-		Component[] components =  ((JPanel)WindowUI.getTabbedPane().getComponentAt(WindowUI.getTabbedPane().getSelectedIndex())).getComponents();
-		Component[] scrollComponent = ((JScrollPane)components[0]).getComponents();
-		Component[] textComponents = ((JViewport)scrollComponent[0]).getComponents();
-		if(textComponents[0] instanceof JTextArea){
-				JTextArea textArea = ((JTextArea)textComponents[0]);	
-				programContent = textArea.getText();
+		if(WindowUI.getTabbedPane().getTabCount() > 0){
+			try{
+			Component[] components =  ((JPanel)WindowUI.getTabbedPane().getComponentAt(WindowUI.getTabbedPane().getSelectedIndex())).getComponents();
+			Component[] scrollComponent = ((JScrollPane)components[0]).getComponents();
+			Component[] textComponents = ((JViewport)scrollComponent[0]).getComponents();
+			if(textComponents[0] instanceof JTextArea){
+					JTextArea textArea = ((JTextArea)textComponents[0]);	
+					programContent = textArea.getText();
+				}
+			
 			}
-		
-		}
-		catch(Exception e){
-			LoggerMessage.printLog(NewProjectTab.class.getName(), e.getMessage());
+			catch(Exception e){
+				LoggerMessage.printLog(NewProjectTab.class.getName(), e.getMessage());
+			}
 		}
 		return programContent;
 	}

@@ -34,7 +34,7 @@ public class TopLevelMenu {
 	static JMenuItem cutItem = null;
 	static JMenuItem copyItem = null;
 	static JMenuItem pasteItem = null;
-	
+
 	
 	static JMenuItem runProject = null;
 	

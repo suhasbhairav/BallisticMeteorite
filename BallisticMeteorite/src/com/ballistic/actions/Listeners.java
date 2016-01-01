@@ -39,29 +39,29 @@ public class Listeners implements ActionListener{
 			String action = e.getActionCommand();
 			
 			switch(action.toUpperCase()){
-				case "NEW":
-					
+				case "NEW":					
 					filename = null;
 					WindowUI.addNewProgrammingTab("");
 					WindowUI.getTabbedPane().setTabComponentAt(WindowUI.getTabbedPane().getTabCount()-1, null);
 					WindowUI.initTabComponent(WindowUI.getTabbedPane().getTabCount()-1);
 					break;
 				case "SAVE":
-					
-					if(WindowUI.getTabName(WindowUI.getTabbedPane().getSelectedIndex()).endsWith(".py") == false){
-						JFileChooser saveProgramFile = new JFileChooser();
-						saveProgramFile.showSaveDialog(null);											
-						if(saveProgramFile.getSelectedFile()!=null){
-								
-								filename = saveProgramFile.getSelectedFile();				
-								saveContentsToFile(filename.getPath());
-							}
-					}
-					else{				
-						String tabName = WindowUI.getTabName(WindowUI.getTabbedPane().getSelectedIndex());
-						File tempFile = new File(tabName);
-						filename = tempFile;
-						saveContentsToFile(filename.getPath());
+					if(WindowUI.getTabbedPane().getTabCount() > 0){
+						if(WindowUI.getTabName(WindowUI.getTabbedPane().getSelectedIndex()).endsWith(".py") == false){
+							JFileChooser saveProgramFile = new JFileChooser();
+							saveProgramFile.showSaveDialog(null);											
+							if(saveProgramFile.getSelectedFile()!=null){
+									
+									filename = saveProgramFile.getSelectedFile();				
+									saveContentsToFile(filename.getPath());
+								}
+						}
+						else{				
+							String tabName = WindowUI.getTabName(WindowUI.getTabbedPane().getSelectedIndex());
+							File tempFile = new File(tabName);
+							filename = tempFile;
+							saveContentsToFile(filename.getPath());
+						}
 					}
 					break;
 					
@@ -81,43 +81,44 @@ public class Listeners implements ActionListener{
 				
 					break;
 				
-				case "RUN":					
-					//if(filename == null){
-					if(WindowUI.getTabName(WindowUI.getTabbedPane().getSelectedIndex()).endsWith(".py") == false){
+				case "RUN":
+					if(WindowUI.getTabbedPane().getTabCount() > 0){
+						//if(filename == null){
+						if(WindowUI.getTabName(WindowUI.getTabbedPane().getSelectedIndex()).endsWith(".py") == false){
+								
+						File tempFile = null;
 							
-					File tempFile = null;
-						
-						try{
-							JFileChooser saveNewProgramFile = new JFileChooser();
-							saveNewProgramFile.showSaveDialog(null);											
-							if(saveNewProgramFile.getSelectedFile()!=null){								
-								filename = saveNewProgramFile.getSelectedFile();				
-								saveContentsToFile(filename.getPath());
-								try{
-									ProcessExecution.executeFile(filename.getPath());
-								}catch(Exception e1){
-									LoggerMessage.printLog(Listeners.class.getName(), e1.getMessage());
+							try{
+								JFileChooser saveNewProgramFile = new JFileChooser();
+								saveNewProgramFile.showSaveDialog(null);											
+								if(saveNewProgramFile.getSelectedFile()!=null){								
+									filename = saveNewProgramFile.getSelectedFile();				
+									saveContentsToFile(filename.getPath());
+									try{
+										ProcessExecution.executeFile(filename.getPath());
+									}catch(Exception e1){
+										LoggerMessage.printLog(Listeners.class.getName(), e1.getMessage());
+									}
 								}
+							}catch(Exception e1){
+								e1.printStackTrace();
+							
 							}
-						}catch(Exception e1){
-							e1.printStackTrace();
-						
-						}
-					}else{
-						
-						String tabName = WindowUI.getTabName(WindowUI.getTabbedPane().getSelectedIndex());
-						File tempFile = new File(tabName);
-						filename = tempFile;
-						saveContentsToFile(filename.getPath());	
-						try{
-							ProcessExecution.executeFile(filename.getPath());
-						}catch(Exception e1){
-							LoggerMessage.printLog(Listeners.class.getName(), e1.getMessage());
+						}else{
+							
+							String tabName = WindowUI.getTabName(WindowUI.getTabbedPane().getSelectedIndex());
+							File tempFile = new File(tabName);
+							filename = tempFile;
+							saveContentsToFile(filename.getPath());	
+							try{
+								ProcessExecution.executeFile(filename.getPath());
+							}catch(Exception e1){
+								LoggerMessage.printLog(Listeners.class.getName(), e1.getMessage());
+							}
+							
 						}
 						
 					}
-						
-					
 					break;
 				
 				case "QUIT":
