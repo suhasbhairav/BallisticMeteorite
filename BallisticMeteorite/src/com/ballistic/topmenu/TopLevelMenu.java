@@ -1,16 +1,10 @@
 package com.ballistic.topmenu;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-import javax.swing.Action;
-import javax.swing.ActionMap;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JTextArea;
-import javax.swing.KeyStroke;
-import javax.swing.TransferHandler;
 import javax.swing.text.DefaultEditorKit;
 
 import com.ballistic.actions.Listeners;
@@ -34,7 +28,7 @@ public class TopLevelMenu {
 	static JMenuItem cutItem = null;
 	static JMenuItem copyItem = null;
 	static JMenuItem pasteItem = null;
-
+	static JMenuItem selectAllItem = null;
 	
 	static JMenuItem runProject = null;
 	
@@ -96,6 +90,12 @@ public class TopLevelMenu {
 			pasteItem.setMnemonic(KeyEvent.VK_P);
 			pasteItem.setFont(FontType.setTextFontForTopMenu());
 			
+			selectAllItem = new JMenuItem();
+			selectAllItem.setText("Select All");
+			selectAllItem.setFont(FontType.setTextFontForTopMenu());
+			selectAllItem.addActionListener(new Listeners());
+			
+			
 			runProject = new JMenuItem("Run");
 			runProject.setActionCommand("Run");
 			runProject.addActionListener(new Listeners());
@@ -142,7 +142,7 @@ public class TopLevelMenu {
 			editMenu.add(cutItem);
 			editMenu.add(copyItem);
 			editMenu.add(pasteItem);
-			
+			editMenu.add(selectAllItem);
 		}catch(Exception e){
 			LoggerMessage.printLog(TopLevelMenu.class.getName(), e.getMessage());
 		}

@@ -84,6 +84,29 @@ public class NewProjectTab extends JTabbedPane {
 		return programContent;
 	}
 	
+	
+	public static void selectAllProgramContent(){
+		String programContent = "";
+		if(WindowUI.getTabbedPane().getTabCount() > 0){
+			try{
+			Component[] components =  ((JPanel)WindowUI.getTabbedPane().getComponentAt(WindowUI.getTabbedPane().getSelectedIndex())).getComponents();
+			Component[] scrollComponent = ((JScrollPane)components[0]).getComponents();
+			Component[] textComponents = ((JViewport)scrollComponent[0]).getComponents();
+			if(textComponents[0] instanceof JTextArea){
+					JTextArea textArea = ((JTextArea)textComponents[0]);	
+					textArea.requestFocusInWindow();
+					textArea.selectAll();
+				}
+			
+			}
+			catch(Exception e){
+				LoggerMessage.printLog(NewProjectTab.class.getName(), e.getMessage());
+			}
+		}
+
+	}
+	
+	
 	public static void openProgrammingProject(String text, String title){
 		WindowUI.addNewProgrammingTab(text, title);
 		WindowUI.getTabbedPane().setTabComponentAt(WindowUI.getTabbedPane().getTabCount()-1, null);

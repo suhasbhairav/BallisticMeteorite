@@ -128,6 +128,12 @@ public class Listeners implements ActionListener{
 					WindowUI.closeProgram();					
 					break;
 				
+				case "SELECT ALL":
+						if(WindowUI.getTabbedPane().getTabCount() > 0){
+							NewProjectTab.selectAllProgramContent();
+						}
+					break;
+				
 				case "ABOUT":
 					try{
 					About about = new About();
