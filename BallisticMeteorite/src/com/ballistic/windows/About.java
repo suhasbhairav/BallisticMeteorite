@@ -12,7 +12,7 @@ public class About {
 
 	private JFrame aboutFrame = null;
 	private String sName = "Ballistic Meteorite";
-	private String sVersion = "1.0";
+
 	
 	public About(){
 		
@@ -25,7 +25,7 @@ public class About {
 		
 		SpringLayout layout = new SpringLayout();		
 		Label labelName = new Label();
-		labelName.setText(sName + "-"+sVersion);
+		labelName.setText(sName);
 		labelName.setVisible(true);
 		
 		layout.putConstraint(SpringLayout.SOUTH,labelName, 20, SpringLayout.SOUTH, aboutFrame);
