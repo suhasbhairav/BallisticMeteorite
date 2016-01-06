@@ -5,7 +5,9 @@ An IDE for python
 Clone the repository to get the runnable jar file. Run this jar to launch the IDE.
 
 #System Requirements
-Java v1.7 and atleast python 2.7 installed on Ubuntu
+Java - 1.7
+Python - 2.7
+Ubuntu
 
 #Note
-Tested on Ubuntu 14.04
+The jar file has not been tested on Windows.
