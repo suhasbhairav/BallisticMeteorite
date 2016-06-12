@@ -2,7 +2,7 @@
 An IDE for python
 
 #Installation
-Clone the repository to get the runnable jar file. Run this jar to launch the IDE.
+Just clone the repository to get the runnable jar file. Run this jar to launch the IDE.
 
 #System Requirements
 Java - 1.7
