@@ -10,4 +10,4 @@ Python - 2.7
 Ubuntu
 
 #Note
-The jar file has not been tested on Windows or Mac OS.
+The jar file has only been tested on Ubuntu.
